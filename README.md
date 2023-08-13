@@ -168,76 +168,21 @@ We recommend using them with: "left click" on the document and then select the o
 
 ### **Disabling languages configuration**
 
-- Disables **HTML** minimization
-
 ``` json
-"MinifyAll.disableHtml": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **TWIG** minimization
-
-``` json
-"MinifyAll.disableTwig": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **PHP** minimization
-
-``` json
-"MinifyAll.disablePhp": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **CSS** minimization
-
-``` json
-"MinifyAll.disableCss": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **SCSS** minimization
-
-``` json
-"MinifyAll.disableScss": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **LESS** minimization
-
-``` json
-"MinifyAll.disableLess": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **SASS** minimization
-
-``` json
-"MinifyAll.disableSass": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **JSON** minimization
-
-``` json
-"MinifyAll.disableJson": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **JSONC** minimization
-
-``` json
-"MinifyAll.disableJsonc": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **JavaScript** minimization //default 'true' (by default it is disabled because it is not on a stable version yet)
-
-``` json
-"MinifyAll.disableJavascript": true|false //default 'false' (by default it is enabled)
-```
-
-- Disables **JavaScriptReact** minimization //default 'true' (by default it is disabled because it is not on a stable version yet)
-
-``` json
-"MinifyAll.disableJavascriptReact": true|false //default 'true' (by default it is enabled)
-```
-
-- Disables **XML** minimization //default 'false'
-
-``` json
-"MinifyAll.disableXml": true|false //default 'false'
+"MinifyAll.disableLanguages": {
+    "css": true|false, //default 'false' (by default it is enabled)
+    "html": true|false, //default 'false' (by default it is enabled)
+    "javascript": true|false, //default 'false' (by default it is enabled)
+    "javascriptreact": true|false, //default 'true' (by default it is disabled)
+    "json": true|false, //default 'false' (by default it is enabled)
+    "jsonc": true|false, //default 'false' (by default it is enabled)
+    "less": true|false, //default 'false' (by default it is enabled)
+    "php": true|false, //default 'false' (by default it is enabled)
+    "sass": true|false, //default 'false' (by default it is enabled)
+    "scss": true|false, //default 'false' (by default it is enabled)
+    "twig": true|false, //default 'false' (by default it is enabled)
+    "xml": true|false //default 'false' (by default it is enabled)
+} 
 ```
 
 </details>

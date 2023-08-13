@@ -146,66 +146,6 @@
 					"default": true,
 					"description": "If you want MinifyAll to stop shortening colors, such as rgb to 3 digit hex, or rgba to hex, or 6 digit hex to 3 digit hex. (True for disabling hex.)"
 				},
-				"MinifyAll.disableHtml": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing HTML. (True for disabling)"
-				},
-				"MinifyAll.disableTwig": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing TWIG. (True for disabling)"
-				},
-				"MinifyAll.disableCss": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing CSS. (True for disabling)"
-				},
-				"MinifyAll.disableScss": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing SCSS. (True for disabling)"
-				},
-				"MinifyAll.disableLess": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing LESS. (True for disabling)"
-				},
-				"MinifyAll.disableSass": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing SASS. (True for disabling)"
-				},
-				"MinifyAll.disableJson": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing JSON. (True for disabling)"
-				},
-				"MinifyAll.disableJsonc": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing JSONC. (True for disabling)"
-				},
-				"MinifyAll.disableJavascript": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing JavaScript. (True for disabling)"
-				},
-				"MinifyAll.disableJavascriptReact": {
-					"type": "boolean",
-					"default": true,
-					"description": "If you want MinifyAll to stop minimizing JavaScriptReact. (True for disabling)"
-				},
-				"MinifyAll.disablePhp": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing PHP. (True for disabling)"
-				},
-				"MinifyAll.disableXml": {
-					"type": "boolean",
-					"default": false,
-					"description": "If you want MinifyAll to stop minimizing XML. (True for disabling)"
-				},
 				"MinifyAll.disableMessages": {
 					"type": "boolean",
 					"default": false,
@@ -220,6 +160,40 @@
 					"type": "boolean",
 					"default": false,
 					"description": "If you want MinifyAll to not showing a context menu when right-clicking in the file explorer. (True for disabling).."
+				},
+				"MinifyAll.disableLanguages": {
+					"type": "object",
+					"additionalProperties": false,
+					"order": 0,
+					"properties": {
+						"css": { "type": "boolean", "description": "Disable CSS" },
+						"html": { "type": "boolean", "description": "Disable HTML" },
+						"js": { "type": "boolean", "description": "Disable Javascript" },
+						"jsr": { "type": "boolean", "description": "Disable Javascript React" },
+						"json": { "type": "boolean", "description": "Disable JSON" },
+						"jsonc": { "type": "boolean", "description": "Disable JSONC" },
+						"less": { "type": "boolean", "description": "Disable LESS" },
+						"php": { "type": "boolean", "description": "Disable PHP" },
+						"sass": { "type": "boolean", "description": "Disable SASS" },
+						"scss": { "type": "boolean", "description": "Disable SCSS" },
+						"twig": { "type": "boolean", "description": "Disable TWIG" },
+						"xml": { "type": "boolean", "description": "Disable XML" }
+					},
+					"default": {
+						"css": false,
+						"html": false,
+						"js": false,
+						"jsr": true,
+						"json": false,
+						"jsonc": false,
+						"less": false,
+						"php": false,
+						"sass": false,
+						"scss": false,
+						"twig": false,
+						"xml": false
+					},
+					"description": "If you want MinifyAll to stop minimizing certain languages (True for disabling)"
 				},
 				"MinifyAll.minifyOnSave": {
 					"type": "boolean",
