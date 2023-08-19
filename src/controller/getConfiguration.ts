@@ -11,11 +11,11 @@ import * as vscode from 'vscode';
 
 import { MinifyOptions } from 'terser';
 
-export enum PrefixesAvailable {
-    hyphenMin = "-min",
-    dotMin = ".min",
-    minifiedHyphen = "-minified",
-    docMinified = ".minified",
+export interface PrefixesOptions {
+    css: string,
+    html: string,
+    js: string,
+    json: string,
 }
 
 export interface IUserSettings {
@@ -121,9 +121,9 @@ export interface IUserSettings {
     minifyOnSaveToNewFile: boolean;
 
     /**
-     * PrefixOfNewMinifiedFiles: The prefix of the extension of the new file.
+     * prefixOfNewMinifiedFiles: The prefix of the extension of the new file.
      */
-    PrefixOfNewMinifiedFiles: PrefixesAvailable;
+    prefixOfNewMinifiedFiles: PrefixesOptions;
 
     /**
      * openMinifiedDocument: If you want MinifyAll to open the new minified
@@ -173,7 +173,7 @@ export function getUserSettings(): IUserSettings {
         disableFileExplorerContextMenu: conf.get('disableFileExplorerContextMenu'),
         minifyOnSave: conf.get('minifyOnSave'),
         minifyOnSaveToNewFile: conf.get('minifyOnSaveToNewFile') ? true : conf.get('minifyOnSaveToNewFIle'),
-        PrefixOfNewMinifiedFiles: conf.get('PrefixOfNewMinifiedFiles'),
+        prefixOfNewMinifiedFiles: conf.get('prefixOfNewMinifiedFiles'),
         disableJavascript: conf.get('disableLanguages.js'),
         disableJavascriptReact: conf.get('disableLanguages.jsr'),
         openMinifiedDocument: conf.get('openMinifiedDocument'),

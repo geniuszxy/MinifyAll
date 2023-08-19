@@ -169,15 +169,14 @@ export default function activate(context: vscode.ExtensionContext): void {
 	// It executes if its called the command "extension.MinifyAll2OtherDoc"
 	const commandMinifyAll2OtherDoc: any = vscode.commands.registerCommand('extension.MinifyAll2OtherDoc', async () => {
 
-		const documentText: string[] = vscode.window.activeTextEditor.document.getText().split('\n');
-		const selectedFileName: string = vscode.window.activeTextEditor.document.fileName;
+		const document: vscode.TextDocument = vscode.window.activeTextEditor.document;
+		const documentText: string[] = document.getText().split('\n');
+		const selectedFileName: string = document.fileName;
 
-		switch (vscode.window.activeTextEditor.document.languageId) {
+		switch (document.languageId) {
 			case 'css': case 'scss': case 'less': case 'sass': // CSS SCSS LESS SASS
-				if (checkLanguageStyles(vscode.window.activeTextEditor.document.languageId, settings)) {
-					const path2NewFile: string = getNewFilePath(path, selectedFileName,
-						vscode.window.activeTextEditor.document.languageId, settings.PrefixOfNewMinifiedFiles);
-
+				if (checkLanguageStyles(document.languageId, settings)) {
+					const path2NewFile: string = getNewFilePath(selectedFileName, settings.prefixOfNewMinifiedFiles.css);
 					const modifiedCssText: string = globalMinifiers.minifyCssScssLessSass(documentText);
 					minifiedTextToNewFile(path2NewFile, modifiedCssText, settings);
 				} else {
@@ -186,9 +185,8 @@ export default function activate(context: vscode.ExtensionContext): void {
 				break;
 
 			case 'json': case 'jsonc': // Json JsonC
-				if (checkLanguageJson(vscode.window.activeTextEditor.document.languageId, settings)) {
-					const path2NewFile: string = getNewFilePath(path, selectedFileName, 'json', settings.PrefixOfNewMinifiedFiles);
-
+				if (checkLanguageJson(document.languageId, settings)) {
+					const path2NewFile: string = getNewFilePath(selectedFileName, settings.prefixOfNewMinifiedFiles.json);
 					const modifiedJsonText: string = globalMinifiers.minifyJsonJsonc(documentText);
 					minifiedTextToNewFile(path2NewFile, modifiedJsonText, settings);
 				} else {
@@ -197,10 +195,8 @@ export default function activate(context: vscode.ExtensionContext): void {
 				break;
 
 			case 'html': case 'xml': case 'php': case 'twig': case 'vue': case 'vue-html': // HTML PHP
-				if (checkLanguageHtmlPhp(vscode.window.activeTextEditor.document.languageId, settings)) {
-					const path2NewFile: string = getNewFilePath(path, selectedFileName,
-						vscode.window.activeTextEditor.document.languageId, settings.PrefixOfNewMinifiedFiles);
-
+				if (checkLanguageHtmlPhp(document.languageId, settings)) {
+					const path2NewFile: string = getNewFilePath(selectedFileName, settings.prefixOfNewMinifiedFiles.html);
 					const modifiedHtmlText: string = globalMinifiers.minifyHtml(documentText);
 					minifiedTextToNewFile(path2NewFile, modifiedHtmlText, settings);
 				} else {
@@ -209,10 +205,9 @@ export default function activate(context: vscode.ExtensionContext): void {
 				break;
 
 			case 'javascript': case 'javascriptreact': // JavaScript
-				if (checkLanguageJS(vscode.window.activeTextEditor.document.languageId, settings)) {
-					const path2NewFile: string = getNewFilePath(path, selectedFileName, 'js', settings.PrefixOfNewMinifiedFiles);
-					const minifierJs: any = await minify(vscode.window.activeTextEditor.document.getText(), settings.terserMinifyOptions);
-
+				if (checkLanguageJS(document.languageId, settings)) {
+					const path2NewFile: string = getNewFilePath(selectedFileName, settings.prefixOfNewMinifiedFiles.js);
+					const minifierJs: any = await minify(document.getText(), settings.terserMinifyOptions);
 					if (minifierJs.error === undefined) {
 						minifiedTextToNewFile(path2NewFile, minifierJs.code, settings);
 					} else {
@@ -242,7 +237,7 @@ export default function activate(context: vscode.ExtensionContext): void {
 					switch (fileUri._fsPath.split('.').pop()) {
 						case 'css': case 'scss': case 'less': case 'sass': // CSS SCSS LESS SASS
 							if (checkLanguageStyles(fileUri._fsPath.split('.').pop(), settings)) {
-								const newName: string = path.basename(fileUri._fsPath).replace(`.${fileUri._fsPath.split('.').pop()}`, `${settings.PrefixOfNewMinifiedFiles}.css`);
+								const newName: string = path.basename(fileUri._fsPath).replace(`.${fileUri._fsPath.split('.').pop()}`, `${settings.prefixOfNewMinifiedFiles.css}.css`);
 								const path2NewFile: string = path.join(filePath, newName);
 								const modifiedCssText: string = globalMinifiers.minifyCssScssLessSass(data.split('\n'));
 								minifiedTextToNewFile(path2NewFile, modifiedCssText, settings);
@@ -253,7 +248,7 @@ export default function activate(context: vscode.ExtensionContext): void {
 
 						case 'json': case 'jsonc': // Json Jsonc
 							if (checkLanguageJson(fileUri._fsPath.split('.').pop(), settings)) {
-								const newNameJson: string = path.basename(fileUri._fsPath).replace('.json', `${settings.PrefixOfNewMinifiedFiles}.json`);
+								const newNameJson: string = path.basename(fileUri._fsPath).replace('.json', `${settings.prefixOfNewMinifiedFiles.json}.json`);
 								const path2NewFileJson: string = path.join(filePath, newNameJson);
 								const modifiedJsonText: string = globalMinifiers.minifyJsonJsonc(data.split('\n'));
 								minifiedTextToNewFile(path2NewFileJson, modifiedJsonText, settings);
@@ -264,7 +259,7 @@ export default function activate(context: vscode.ExtensionContext): void {
 
 						case 'html': case 'xml': case 'php': case 'twig': case 'vue': case 'vue-html': // HTML PHP
 							if (checkLanguageHtmlPhp(fileUri._fsPath.split('.').pop(), settings)) {
-								const newNameHtml: string = path.basename(fileUri._fsPath).replace(`.${fileUri._fsPath.split('.').pop()}`, `${settings.PrefixOfNewMinifiedFiles}.html`);
+								const newNameHtml: string = path.basename(fileUri._fsPath).replace(`.${fileUri._fsPath.split('.').pop()}`, `${settings.prefixOfNewMinifiedFiles.html}.html`);
 								const path2NewFileHtml: string = path.join(filePath, newNameHtml);
 								const modifiedHtmlText: string = globalMinifiers.minifyHtml(data.split('\n'));
 								minifiedTextToNewFile(path2NewFileHtml, modifiedHtmlText, settings);
@@ -276,7 +271,7 @@ export default function activate(context: vscode.ExtensionContext): void {
 						case 'js': // JavaScript
 							if ((fileUri._fsPath.split('.').pop() === 'js' && !settings.disableJavascript) ||
 								(fileUri._fsPath.split('.').pop() === 'jsx' && !settings.disableJavascriptReact)) {
-								const path2NewFileJs: string = path.join(filePath, path.basename(fileUri._fsPath).replace('.js', `${settings.PrefixOfNewMinifiedFiles}.js`));
+								const path2NewFileJs: string = path.join(filePath, path.basename(fileUri._fsPath).replace('.js', `${settings.prefixOfNewMinifiedFiles.js}.js`));
 								const minifierJs: any = await minify(data, settings.terserMinifyOptions);
 
 								if (minifierJs.error === undefined) {

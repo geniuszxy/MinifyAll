@@ -210,22 +210,23 @@
 					"default": false,
 					"description": "[DEPRECATED use 'minifyOnSaveToNewFile' instead]If you want MinifyAll to minify every time you save in other file. (True for enabling)"
 				},
-				"MinifyAll.PrefixOfNewMinifiedFiles": {
-					"type": "string",
-					"default": "-min",
-					"enum": [
-						"-min",
-						".min",
-						"-minified",
-						".minified"
-					],
-					"enumDescriptions": [
-						"Sets the future filename to example-min.extension",
-						"Sets the future filename to example.min.extension",
-						"Sets the future filename to example-minified.extension",
-						"Sets the future filename to example.minified.extension"
-					],
-					"description": "The prefix of the extension of the new file. Default (-min)"
+				"MinifyAll.prefixOfNewMinifiedFiles": {
+					"type": "object",
+					"additionalProperties": false,
+					"order": 1,
+					"properties": {
+						"css": { "type": "string", "description": "CSS SCSS LESS SASS", "pattern": "^[^\\x00-\\x1f\"*/:<>?\\|]*$" },
+						"html": { "type": "string", "description": "HTML XML PHP TWIG", "pattern": "^[^\\x00-\\x1f\"*/:<>?\\|]*$" },
+						"js": { "type": "string", "description": "Javascript JavascriptReact", "pattern": "^[^\\x00-\\x1f\"<>|:*]*$" },
+						"json": { "type": "string", "description": "JSON JSONC", "pattern": "^[^\\x00-\\x1f\"*/:<>?\\|]*$" }
+					},
+					"default": {
+						"css": "-min",
+						"html": "-min",
+						"js": "-min",
+						"json": "-min"
+					},
+					"description": "The prefix of the extension of the new file."
 				},
 				"MinifyAll.openMinifiedDocument": {
 					"type": "boolean",
